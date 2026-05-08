@@ -1,6 +1,8 @@
 package com.oadl.spring.config;
 
 import com.oadl.spring.entity.Person;
+import com.oadl.spring.entity.Role;
+import com.oadl.spring.entity.User;
 import com.oadl.spring.entity.child.Employee;
 import com.oadl.spring.entity.child.Guest;
 import com.oadl.spring.enums.GuestPrivilege;
@@ -32,5 +34,14 @@ public class StartupConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         log.info("Custom Log: Startup Config");
+        Role role = new Role();
+        role.setName("admin");
+        roleService.create(role);
+
+        User user = new User();
+        user.setUsername("omar");
+        user.setPassword("omar");
+        user.addRole(role);
+        userService.create(user);
     }
 }
